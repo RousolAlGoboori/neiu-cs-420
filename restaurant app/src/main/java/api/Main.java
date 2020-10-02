@@ -7,14 +7,18 @@ import java.net.URISyntaxException;
 public class Main {
     public static void main(String[] args) throws ParseException {
         try {
-            ReadFile rf = new ReadFile("output.txt");
+            WriteFile wf = new WriteFile("output.txt");
             GetRequest s = new GetRequest();
-            rf.writeData(s.getData());
+            wf.writeData(s.getData());
         }catch (IOException ie){
             System.out.println(ie.toString());
         }catch (URISyntaxException u){
             System.out.println( u.toString());
         }
     }
+
+
+
+
 }
 

@@ -1,8 +1,6 @@
 package api;
 
 import org.json.simple.JSONObject;
-import org.json.simple.JSONArray;
-import netscape.javascript.JSObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
@@ -13,8 +11,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
 public class GetRequest {
+    private HttpURLConnection connection;
+    private  final int connectTimeout = 1000;;
+
     public JSONObject getData( ) throws IOException, ParseException {
         String jsonData = "";
         HttpURLConnection connection = getConn();
@@ -37,14 +37,12 @@ public class GetRequest {
     }
     private  HttpURLConnection getConn() throws IOException {
         String urlString = "https://developers.zomato.com/api/v2.1/search?entity_id=292&entity_type=city";
-        final int connectTimeout = 1000;
         HttpURLConnection connection = null;
         final URL url = new URL(urlString);
         connection = getHttpURLConnection(connectTimeout, url);
         return connection;
     }
     private HttpURLConnection getHttpURLConnection(int connectTimeout, URL url) throws IOException {
-        HttpURLConnection connection;
         connection = (HttpURLConnection) url.openConnection();
         connection.setConnectTimeout(connectTimeout);
         connection.setRequestMethod(HttpMethod.GET);
