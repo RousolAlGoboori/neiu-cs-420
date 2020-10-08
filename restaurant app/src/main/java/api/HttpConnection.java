@@ -11,13 +11,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-public class GetRequest {
+public class HttpConnection {
+
     private HttpURLConnection connection;
-    private  final int connectTimeout = 1000;;
+    private  final int connectTimeout = 1000;
 
     public JSONObject getData( ) throws IOException, ParseException {
         String jsonData = "";
-        HttpURLConnection connection = getConn();
+        HttpURLConnection connection = getConnection();
         return getString(jsonData, connection);
     }
 
@@ -26,16 +27,23 @@ public class GetRequest {
         if (connection.getResponseCode() == 200) {
             final InputStream inputStream = connection.getInputStream();
             final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-            String line;
-           while ((line = bufferedReader.readLine()) != null) {
-                jsonData += line;
-            }
-           JSONParser parse = new JSONParser();
-           json = (JSONObject) parse.parse(jsonData);
+            json = getJsonObject(jsonData, bufferedReader);
         }
         return json;
     }
-    private  HttpURLConnection getConn() throws IOException {
+
+    private JSONObject getJsonObject(String jsonData, BufferedReader bufferedReader) throws IOException, ParseException {
+        JSONObject json;
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+             jsonData += line;
+         }
+        JSONParser parse = new JSONParser();
+        json = (JSONObject) parse.parse(jsonData);
+        return json;
+    }
+
+    private  HttpURLConnection getConnection() throws IOException {
         String urlString = "https://developers.zomato.com/api/v2.1/search?entity_id=292&entity_type=city";
         HttpURLConnection connection = null;
         final URL url = new URL(urlString);

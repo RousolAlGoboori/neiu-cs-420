@@ -19,8 +19,6 @@ public class ReadFile {
     }
     private static String getPath() throws URISyntaxException {
         String path = ClassLoader.getSystemClassLoader().getResource("").toURI().getPath();
-       // path = path.substring(0, path.indexOf("classes"));
-       // path += "resources" + File.separator + "files" + File.separator;
         return path;
     }
 

@@ -1,11 +1,10 @@
 package api;
 
-import netscape.javascript.JSObject;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
-import java.io.*;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URISyntaxException;
 public class WriteFile extends ReadFile {
 
@@ -17,6 +16,11 @@ public class WriteFile extends ReadFile {
         FileWriter fw = new FileWriter(fullPath);
         JSONObject response = json;
         JSONArray results = (JSONArray) response.get("restaurants");
+        writeJsonObject(fw, results);
+        fw.close();
+    }
+
+    private void writeJsonObject(FileWriter fw, JSONArray results) throws IOException {
         for (Object r : results) {
             JSONObject result = (JSONObject) r;
             JSONObject result1 = (JSONObject) result.get("restaurant");
@@ -24,6 +28,5 @@ public class WriteFile extends ReadFile {
             fw.write(result1.get("location").toString());
             fw.write("\n");
         }
-        fw.close();
     }
 }
