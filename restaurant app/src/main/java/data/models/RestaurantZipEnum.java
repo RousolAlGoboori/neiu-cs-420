@@ -1,4 +1,4 @@
-package javaFx;
+package data.models;
 
 public enum RestaurantZipEnum {
 
@@ -20,5 +20,10 @@ public enum RestaurantZipEnum {
     }
     public int getZip() {
         return zip;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(zip);
     }
 }

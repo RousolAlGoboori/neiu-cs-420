@@ -1,4 +1,4 @@
-package javaFx;
+package data.models;
 
 import api.ReadFile;
 
@@ -8,7 +8,12 @@ import java.util.*;
 
 public class RestaurantUtils {
 
-    private static List<Domain> list = new ArrayList<>();
+    private static List<RestaurantDomain> list = new ArrayList<>();
+    private RestaurantUtils () { }
+    public static List<RestaurantDomain> getAllData(){
+        return list;
+    }
+
     public static void read (String fileName) throws IOException {
         BufferedReader br = ReadFile.readData(ReadFile.getFilePath(fileName));
         String strLine;
@@ -35,20 +40,20 @@ public class RestaurantUtils {
         locality = data[6].split(",")[0].split("\"")[1];
         country_id = data[7].split(",")[0];
         city_id = data[8].split(",")[0];
-        list.add(new Domain(zipcode,address,city,locality,country_id, city_id));
+        list.add(new RestaurantDomain(zipcode,address,city,locality,country_id, city_id));
     }
 
-    public static Map<RestaurantZipEnum, List<Domain>> mapData() {
-        Map<RestaurantZipEnum, List<Domain>> ls = new HashMap<>();
-        for (Domain i : list) {
+    public static Map<RestaurantZipEnum, List<RestaurantDomain>> mapData() {
+        Map<RestaurantZipEnum, List<RestaurantDomain>> ls = new HashMap<>();
+        for (RestaurantDomain i : list) {
             for(RestaurantZipEnum zipCategory: RestaurantZipEnum.values()){
-                if (Integer.parseInt(i.getZipcode()) == zipCategory.getZip())
+                if (Integer.parseInt(i.getZiploc()) == zipCategory.getZip())
                     addToMap(zipCategory,ls,i);
             }
         }
         return ls;
     }
-    private static void addToMap(RestaurantZipEnum key, Map<RestaurantZipEnum, List<Domain>> map, Domain rd){
+    private static void addToMap(RestaurantZipEnum key, Map<RestaurantZipEnum, List<RestaurantDomain>> map, RestaurantDomain rd){
         if(!map.containsKey(key)){
             map.put(key, new ArrayList<>(Arrays.asList(rd)));
         }
