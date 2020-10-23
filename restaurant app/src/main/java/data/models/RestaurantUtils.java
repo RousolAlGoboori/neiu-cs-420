@@ -45,14 +45,19 @@ public class RestaurantUtils {
 
     public static Map<RestaurantZipEnum, List<RestaurantDomain>> mapData() {
         Map<RestaurantZipEnum, List<RestaurantDomain>> ls = new HashMap<>();
-        for (RestaurantDomain i : list) {
-            for(RestaurantZipEnum zipCategory: RestaurantZipEnum.values()){
-                if (Integer.parseInt(i.getZiploc()) == zipCategory.getZip())
-                    addToMap(zipCategory,ls,i);
-            }
-        }
+        list.forEach(restaurantDomain ->  placeValuesInZipCategory(ls, restaurantDomain));
         return ls;
     }
+
+
+    private static void placeValuesInZipCategory(Map<RestaurantZipEnum, List<RestaurantDomain>> ls, RestaurantDomain i) {
+        Arrays.asList(RestaurantZipEnum.values()).forEach(zipCategory ->{
+            if (Integer.parseInt(i.getZiploc()) == zipCategory.getZip())
+                addToMap(zipCategory,ls,i);
+
+        });
+    }
+
     private static void addToMap(RestaurantZipEnum key, Map<RestaurantZipEnum, List<RestaurantDomain>> map, RestaurantDomain rd){
         if(!map.containsKey(key)){
             map.put(key, new ArrayList<>(Arrays.asList(rd)));

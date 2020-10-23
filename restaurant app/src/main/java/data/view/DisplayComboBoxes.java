@@ -2,15 +2,12 @@ package data.view;
 
 import data.models.RestaurantDomain;
 import data.models.RestaurantZipEnum;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.text.Text;
 import javafx.util.StringConverter;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +29,7 @@ public class DisplayComboBoxes {
         setUpComboBox1();
         setUpComboBox2();
     }
-    private class comboBox2StringConverter extends StringConverter<RestaurantDomain> {
+    private static class comboBox2StringConverter extends StringConverter<RestaurantDomain> {
         private final String SEP = ", address: ";
         @Override
         public String toString(RestaurantDomain restaurantDomain) {
@@ -57,36 +54,30 @@ public class DisplayComboBoxes {
         comboBox1 = new ComboBox<>();
         comboBox1.getItems().addAll(sortZipCodes());
         comboBox1.setPromptText(" --Select a zip code-- ");
-        comboBox1.valueProperty().addListener(new ChangeListener<RestaurantZipEnum>(){
-            @Override
-            public void changed(ObservableValue<? extends RestaurantZipEnum> observable, RestaurantZipEnum oldValue, RestaurantZipEnum newValue) {
-                text.setVisible(false);
-                comboBox2.getItems().clear();
-                comboBox2.getItems().addAll(rm.get(newValue));
-                comboBox2.setVisible(true);
-            }
+        comboBox1.valueProperty().addListener((observable, oldValue, newValue) -> {
+            text.setVisible(false);
+            comboBox2.getItems().clear();
+            comboBox2.getItems().addAll(rm.get(newValue));
+            comboBox2.setVisible(true);
         });
     }
     private ObservableList<RestaurantZipEnum> sortZipCodes(){
-    return zip.sorted(new Comparator<RestaurantZipEnum>() {
-        @Override
-        public int compare(RestaurantZipEnum o1, RestaurantZipEnum o2) {
+    return zip.sorted((o1, o2) -> {
 
-            if( o1.getZip() < o2.getZip())
-                return -1;
-            else if( o1.getZip() > o2.getZip())
-                return 1;
-            else
-                return 0;
-        }
-     });
+        if( o1.getZip() < o2.getZip())
+            return -1;
+        else if( o1.getZip() > o2.getZip())
+            return 1;
+        else
+            return 0;
+    });
     }
     private void setUpComboBox2(){
         comboBox2 = new ComboBox<>();
         comboBox2.setPromptText(" --Select a value-- ");
         comboBox2.setConverter(new comboBox2StringConverter());
         comboBox2.setVisible(false);
-        createCombBox1SelectionListener();
+        createCombBox2SelectionListener();
         handleComboBox2Update();
     }
     private void handleComboBox2Update(){
@@ -103,17 +94,14 @@ public class DisplayComboBoxes {
                }
         });
     }
-    private void createCombBox1SelectionListener(){
-        comboBox2.valueProperty().addListener(new ChangeListener<RestaurantDomain>() {
-            @Override
-            public void changed(ObservableValue<? extends RestaurantDomain> observable, RestaurantDomain oldValue, RestaurantDomain newValue) {
-                if (newValue != null){
-                    String text1 = "Locality: " + newValue.getLocality() +"\n" +
-                            "country_id: " + newValue.getCountry_id() +"\n" +
-                            "city_id: " + newValue.getCity_id() +"\n" ;
-                    text.setText(text1);
-                    text.setVisible(true);
-                }
+    private void createCombBox2SelectionListener(){
+        comboBox2.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null){
+                String text1 = "Locality: " + newValue.getLocality() +"\n" +
+                        "country_id: " + newValue.getCountry_id() +"\n" +
+                        "city_id: " + newValue.getCity_id() +"\n" ;
+                text.setText(text1);
+                text.setVisible(true);
             }
         });
     }

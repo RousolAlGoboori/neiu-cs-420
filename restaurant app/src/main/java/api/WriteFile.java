@@ -20,13 +20,19 @@ public class WriteFile extends ReadFile {
         fw.close();
     }
 
-    private void writeJsonObject(FileWriter fw, JSONArray results) throws IOException {
-        for (Object r : results) {
-            JSONObject result = (JSONObject) r;
-            JSONObject result1 = (JSONObject) result.get("restaurant");
-            System.out.println(result1.get("location"));
-            fw.write(result1.get("location").toString());
-            fw.write("\n");
-        }
+    private void writeJsonObject(FileWriter fw, JSONArray results) {
+        results.forEach(Object -> {
+            JSONObject result = (JSONObject) Object;
+            try {
+                JSONObject result1 = (JSONObject) result.get("restaurant");
+                System.out.println(result1.get("location"));
+                fw.write(result1.get("location").toString());
+                fw.write("\n");
+
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        });
+
     }
 }
