@@ -10,6 +10,7 @@ import javafx.util.StringConverter;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static data.models.RestaurantUtils.getAllData;
 import static data.models.RestaurantUtils.mapData;
@@ -42,11 +43,11 @@ public class DisplayComboBoxes {
          @Override
         public RestaurantDomain fromString(String string) {
            String zip = string.split(SEP)[0];
-            for(RestaurantDomain restaurantDomain:getAllData()){
-                if(restaurantDomain.getZiploc().equals(zip))
-                    return restaurantDomain;
-            }
-            return null;
+            List<RestaurantDomain> restaurantDomainList = getAllData().stream()
+                                                                      .filter(restaurantDomain-> restaurantDomain.getZiploc().equals(zip))
+                                                                      .limit(1)
+                                                                      .collect(Collectors.toList());
+            return restaurantDomainList.isEmpty() ? null :restaurantDomainList.get(0);
         }
     }
 

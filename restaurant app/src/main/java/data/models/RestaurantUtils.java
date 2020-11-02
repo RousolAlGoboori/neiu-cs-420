@@ -15,13 +15,9 @@ public class RestaurantUtils {
     }
 
     public static void read (String fileName) throws IOException {
+
         BufferedReader br = ReadFile.readData(ReadFile.getFilePath(fileName));
-        String strLine;
-        while((strLine = br.readLine()) != null){
-            parseLine(strLine);
-        }
-        br.close();
-        System.out.println("list data\n"+list);
+        br.lines().forEach(RestaurantUtils::parseLine);
     }
 
     private static void parseLine(String str){

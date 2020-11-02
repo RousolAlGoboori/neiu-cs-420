@@ -1,25 +1,26 @@
 package api;
 
 import java.io.*;
-import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class ReadFile {
-    public final String fullPath;
+    public final Path fullPath;
 
-    public ReadFile( String fileName) throws URISyntaxException{
-        this.fullPath = createPath(fileName);;
+    public ReadFile( String fileName) throws IOException {
+        this.fullPath = createPath(fileName);
     }
 
-    public String createPath(String fileName) throws URISyntaxException {
-        File dirs = new File(getPath());
-        if (!dirs.exists())
-            dirs.mkdirs();
-        return getPath() + fileName;
+    public Path createPath(String fileName) throws IOException {
+
+        if(!Files.exists(getPath())){
+            Files.createDirectories(getPath());
+        }
+
+        return Path.of(getPath().toString(), fileName);
     }
-    private static String getPath() throws URISyntaxException {
-        String path = ClassLoader.getSystemClassLoader().getResource("").toURI().getPath();
-        return path;
+    private static Path getPath() {
+       return Path.of("build", "resources","apidata").toAbsolutePath();
     }
 
     public static Path getFilePath( String fileName ){

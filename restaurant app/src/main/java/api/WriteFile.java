@@ -1,38 +1,29 @@
 package api;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URISyntaxException;
+import java.util.List;
+
 public class WriteFile extends ReadFile {
 
-    public WriteFile(String fileName) throws URISyntaxException {
+    public WriteFile(String fileName) throws IOException {
         super(fileName);
     }
 
-    public void writeData(JSONObject json) throws IOException {
-        FileWriter fw = new FileWriter(fullPath);
-        JSONObject response = json;
-        JSONArray results = (JSONArray) response.get("restaurants");
-        writeJsonObject(fw, results);
-        fw.close();
-    }
+    public void writeData(List<String> jsonObjectList) throws IOException {
+        FileWriter fw = new FileWriter(fullPath.toString());
 
-    private void writeJsonObject(FileWriter fw, JSONArray results) {
-        results.forEach(Object -> {
-            JSONObject result = (JSONObject) Object;
+        jsonObjectList.forEach(line -> {
             try {
-                JSONObject result1 = (JSONObject) result.get("restaurant");
-                System.out.println(result1.get("location"));
-                fw.write(result1.get("location").toString());
+                fw.write(line);
                 fw.write("\n");
 
-            }catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         });
-
+        fw.close();
     }
 }
+
+
