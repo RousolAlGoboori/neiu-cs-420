@@ -12,7 +12,6 @@ public enum RestaurantZipEnum {
     FORTY_ONE(60641),
     FORTY_SEVEN(60647),
     FIFTY_FOUR(60654);
-   // SIXTY_ONE(60661);
 
     private final int zip;
     RestaurantZipEnum(int zip){

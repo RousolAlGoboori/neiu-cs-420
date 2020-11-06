@@ -1,6 +1,8 @@
-package data.models;
+package data.utils;
 
 import api.ReadFile;
+import data.models.RestaurantDomain;
+import data.models.RestaurantZipEnum;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,10 +11,11 @@ import java.util.*;
 public class RestaurantUtils {
 
     private static List<RestaurantDomain> list = new ArrayList<>();
-    private RestaurantUtils () { }
     public static List<RestaurantDomain> getAllData(){
         return list;
     }
+
+    private RestaurantUtils() { }
 
     public static void read (String fileName) throws IOException {
 

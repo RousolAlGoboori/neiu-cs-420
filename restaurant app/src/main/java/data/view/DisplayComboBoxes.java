@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static data.models.RestaurantUtils.getAllData;
-import static data.models.RestaurantUtils.mapData;
+import static data.utils.RestaurantUtils.getAllData;
+import static data.utils.RestaurantUtils.mapData;
 import static javafx.collections.FXCollections.observableArrayList;
 
 public class DisplayComboBoxes {
@@ -24,7 +24,7 @@ public class DisplayComboBoxes {
     private ObservableList<RestaurantZipEnum> zip;
 
     public DisplayComboBoxes(){
-        rm =mapData();
+        rm = mapData();
         zip=observableArrayList(rm.keySet());
         text =new Text();
         setUpComboBox1();

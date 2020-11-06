@@ -1,7 +1,8 @@
-import data.view.DisplayComboBoxes;
 import data.models.RestaurantDomain;
-import data.models.RestaurantUtils;
 import data.models.RestaurantZipEnum;
+import data.utils.RestaurantUtils;
+import data.view.DisplayComboBoxes;
+import data.view.Listener;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -17,6 +18,8 @@ import java.io.IOException;
 public class DisplayRestaurantData extends Application {
 
     private DisplayComboBoxes comboBoxes;
+    Scene scene1, scene2;
+
     public static void main(String[] args) {
 
         launch(args);
@@ -25,14 +28,31 @@ public class DisplayRestaurantData extends Application {
     public void start(Stage primaryStage) throws IOException {
         RestaurantUtils.read("output.txt");
         comboBoxes = new DisplayComboBoxes();
+        CreateScene1(primaryStage);
+        BorderPane r = CreateScene2();
+        Listener.CreateRadioButtons(r);
+    }
+
+    private BorderPane CreateScene2() {
+        Stage primaryStage1 = new Stage();
+        primaryStage1.setTitle("Restaurant charts ");
+        BorderPane r = new BorderPane();
+        scene2 = new Scene(r, 600, 600);
+        primaryStage1.setScene(scene2);
+        primaryStage1.show();
+        return r;
+    }
+
+    private void CreateScene1(Stage primaryStage) {
         BorderPane borderPane = new BorderPane();
-        setUpBorder(borderPane);
-        Scene scene = new Scene(borderPane,800,200);
-        primaryStage.setScene(scene);
+        setUpBorder1(borderPane);
+        scene1 = new Scene(borderPane,800,200);
+        primaryStage.setScene(scene1);
         primaryStage.setTitle("Restaurant App");
         primaryStage.show();
     }
-    private void setUpBorder(BorderPane borderPane){
+
+    private void setUpBorder1(BorderPane borderPane){
         HBox hBox = new HBox();
         setUpHBox(hBox);
         borderPane.setTop(hBox);
