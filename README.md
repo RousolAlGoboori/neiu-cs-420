@@ -20,9 +20,9 @@ In this project, I'm going to develop a Restaurant App that:
 
    I would like to answer:
 
-1.	Can I find restaurants nearby based on location?
-1.	Can I find restaurants nearby based on name?
-1.	Can I find number of registered restaurants with Zomato app in Chicago?
+1.	Can I find restaurants nearby based on location (Zip code)?  
+1.	Can I find restaurants based on Locality?
+1.	Can I find average rating based on Locality?
 
 ## Motivation:
 
