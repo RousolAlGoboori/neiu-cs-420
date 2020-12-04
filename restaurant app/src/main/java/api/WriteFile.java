@@ -12,12 +12,10 @@ public class WriteFile extends ReadFile {
 
     public void writeData(List<String> jsonObjectList) throws IOException {
         FileWriter fw = new FileWriter(fullPath.toString());
-
         jsonObjectList.forEach(line -> {
             try {
                 fw.write(line);
                 fw.write("\n");
-
             } catch (IOException e) {
                 e.printStackTrace();
             }

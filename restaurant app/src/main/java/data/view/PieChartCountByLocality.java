@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import static data.utils.RestaurantUtils.getAllData;
 
 public class PieChartCountByLocality {
-    public static ObservableList<javafx.scene.chart.PieChart.Data> getChart() {
+    public static ObservableList<javafx.scene.chart.PieChart.Data> getPieChart2() {
 
         ObservableList<javafx.scene.chart.PieChart.Data> observableList = FXCollections.observableArrayList();
         AtomicInteger count = new AtomicInteger();
@@ -35,7 +35,7 @@ public class PieChartCountByLocality {
                                        .count()));
         return LocalityCountList;
     }
-    private static List<String> getLocalityNames() {
+    public static List<String> getLocalityNames() {
           return getAllData()
                 .stream()
                 .map(RestaurantDomain::getLocality)

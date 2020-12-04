@@ -29,8 +29,7 @@ public class ReadFile {
 
     public static BufferedReader readData( Path filePath ) throws FileNotFoundException {
         InputStream is = new FileInputStream(filePath.toString());
-        BufferedReader br = new BufferedReader(new InputStreamReader(is));
-      return br;
+        return new BufferedReader(new InputStreamReader(is));
     }
 }
 

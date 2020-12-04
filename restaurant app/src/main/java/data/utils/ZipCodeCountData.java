@@ -13,7 +13,6 @@ public class ZipCodeCountData {
     private ZipCodeCountData(){}
 
     public static List<Long> getZipCodeCount() {
-
         List<Long> zipCountList = new ArrayList<>();
                                   Arrays.stream(RestaurantZipEnum.values())
                                  .forEach( zipEnum -> zipCountList.add(getAllData()
@@ -22,6 +21,7 @@ public class ZipCodeCountData {
                                  .count()));
         return zipCountList;
     }
+
 
 
 }

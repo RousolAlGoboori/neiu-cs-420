@@ -9,7 +9,7 @@ import static data.utils.ZipCodeCountData.getZipCodeCount;
 
 public class PieChartNumberOfRestaurants {
 
-   public static ObservableList<javafx.scene.chart.PieChart.Data> getChartData() {
+   public static ObservableList<javafx.scene.chart.PieChart.Data> getPieChart1() {
         ObservableList<javafx.scene.chart.PieChart.Data> observableList = FXCollections.observableArrayList();
         Arrays.stream(RestaurantZipEnum.values())
                                       .forEach(zipped -> observableList

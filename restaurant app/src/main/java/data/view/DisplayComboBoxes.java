@@ -8,6 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.text.Text;
 import javafx.util.StringConverter;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -63,15 +64,7 @@ public class DisplayComboBoxes {
         });
     }
     private ObservableList<RestaurantZipEnum> sortZipCodes(){
-    return zip.sorted((o1, o2) -> {
-
-        if( o1.getZip() < o2.getZip())
-            return -1;
-        else if( o1.getZip() > o2.getZip())
-            return 1;
-        else
-            return 0;
-    });
+    return zip.sorted(Comparator.comparingInt(RestaurantZipEnum::getZip));
     }
     private void setUpComboBox2(){
         comboBox2 = new ComboBox<>();
@@ -99,15 +92,15 @@ public class DisplayComboBoxes {
         comboBox2.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null){
                 String text1 = "Locality: " + newValue.getLocality() +"\n" +
-                        "country_id: " + newValue.getCountry_id() +"\n" +
-                        "city_id: " + newValue.getCity_id() +"\n" ;
+                               "country_id: " + newValue.getCountry_id() +"\n" +
+                               "city_id: " + newValue.getCity_id() +"\n" ;
                 text.setText(text1);
                 text.setVisible(true);
             }
         });
     }
 
-    public ComboBox<RestaurantZipEnum> getComboBox1() {
+    public  ComboBox<RestaurantZipEnum> getComboBox1() {
         return comboBox1;
     }
 

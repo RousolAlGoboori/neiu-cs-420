@@ -9,12 +9,11 @@ public class Main {
                     WriteFile wf = new WriteFile("output.txt");
                     HttpConnection hp = new HttpConnection();
                     wf.writeData(hp.getData());
-
                 }catch (IOException ie){
                     System.out.println(ie.toString());
                 }
     }
-    }
+}
 
 
 
