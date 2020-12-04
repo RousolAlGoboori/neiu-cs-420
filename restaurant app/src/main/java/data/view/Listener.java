@@ -16,7 +16,7 @@ public class Listener {
                     r.setCenter(pieChart);
                 }
                 if (group.getSelectedToggle().getUserData() == "Locality") {
-                    pi.setTitle("Percentage Number Of Locality  ");
+                    pi.setTitle("Percentage Number Of Restaurants By Locality");
                     pi.setLabelLineLength(5);
                     r.setCenter(pi);
 
